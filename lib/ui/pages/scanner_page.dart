@@ -71,6 +71,7 @@ class _ScannerPageState extends State<ScannerPage> {
     super.initState();
 
     _permissionsGranted = _permissionsCompleter.future;
+
     if (Platform.isAndroid || Platform.isIOS) {
       Permission.camera.status.then((status) {
         if (status.isDenied) {

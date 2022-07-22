@@ -45,6 +45,12 @@ class Messaging {
     });
   }
 
+  void initFirebase() {
+    Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+
   Future<bool> requestPermission() async {
     NotificationSettings settings = await _instance.requestPermission(
       alert: true,

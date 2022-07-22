@@ -57,6 +57,14 @@ class _SettingsPageState extends State<SettingsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SettingText("Push Notifications"),
+                SettingToggle(s.pushNotificationsEnabled, s.setPushNotificationsEnabled),
+              ],
+            ),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 SettingText("Tor Connectivity"),
                 SettingToggle(s.torEnabled, s.setTorEnabled),
               ],

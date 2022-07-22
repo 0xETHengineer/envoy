@@ -8,10 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:envoy/business/local_storage.dart';
 import 'package:intl/intl.dart';
-
 import 'dart:convert';
-
 import 'package:tor/tor.dart';
+import 'package:app_settings/app_settings.dart';
 
 // Generated
 part 'settings.g.dart';
@@ -104,6 +103,25 @@ class Settings extends ChangeNotifier {
       Tor().enable();
     } else {
       Tor().disable();
+    }
+
+    store();
+  }
+
+  bool usingPushNotifications = false;
+
+  bool pushNotificationsEnabled() {
+    return usingPushNotifications;
+  }
+
+  setPushNotificationsEnabled(bool pushNotificationsEnabled) {
+    usingPushNotifications = pushNotificationsEnabled;
+
+    if (pushNotificationsEnabled) {
+      print("user wants it enabled");
+    } else {
+      AppSettings.openNotificationSettings();
+      print("user wants it disabled");
     }
 
     store();

@@ -25,19 +25,7 @@ import 'business/video_manager.dart';
 Messaging? messaging;
 
 Future<void> main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-
-    // TODO: find an appropriate screen to ask for permission on iOS
-    messaging = Messaging();
-    await messaging!.requestPermission();
-  } catch (e) {
-    print('Failed to initialize Firebase');
-  }
-
+  WidgetsFlutterBinding.ensureInitialized();
   await initSingletons();
 
   runApp(MyApp());
@@ -50,6 +38,12 @@ Future<void> initSingletons() async {
   Tor.init();
   UpdatesManager.init();
   ScvServer.init();
+
+  if (Settings().usingPushNotifications) {
+
+  } else {
+
+  }
 
   if (Settings().usingTor) {
     Tor().enable();

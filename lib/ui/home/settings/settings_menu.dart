@@ -4,6 +4,7 @@
 
 import 'package:envoy/ui/home/settings/settings_page.dart';
 import 'package:envoy/ui/home/settings/support_page.dart';
+import 'package:envoy/ui/pages/preferences/connectivity_explainer.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:envoy/ui/home/home_page.dart';
 import 'package:flutter_svg/svg.dart';
@@ -91,16 +92,16 @@ class SettingsMenuWidget extends StatelessWidget {
                       callback(AboutPage());
                     },
                   ),
-                  // SizedBox(height: 50),
-                  // MenuOption(
-                  //   label: "Onboard",
-                  //   onTap: () {
-                  //     Navigator.of(context)
-                  //         .push(MaterialPageRoute(builder: (context) {
-                  //       return OnboardingWelcomePage();
-                  //     }));
-                  //   },
-                  // ),
+                  SizedBox(height: 50),
+                  MenuOption(
+                    label: "Onboard",
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return ConnectivityExplainer();
+                      }));
+                    },
+                  ),
                 ]),
             Padding(
               padding: const EdgeInsets.only(bottom: 30.0),
