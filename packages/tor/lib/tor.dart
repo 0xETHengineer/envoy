@@ -119,7 +119,7 @@ class Tor {
         String torrc = 'DataDirectory ' +
             directory.path +
             '\n' +
-            'Log notice file ' +
+            'Log debug file ' +
             directory.path +
             '/tor.log' +
             '\n' +
