@@ -99,6 +99,7 @@ class Tor {
   }
 
   start() async {
+    if (_connectionChecker != null) _connectionChecker!.cancel();
     final rustFunction = _lib.lookup<NativeFunction<TorStartRust>>('tor_start');
     final dartFunction = rustFunction.asFunction<TorStartDart>();
 
@@ -135,6 +136,8 @@ class Tor {
             'ClientRejectInternalAddresses 1' +
             '\n' +
             'SafeLogging 0';
+
+        print("TORRC: " + torrc);
 
         file.writeAsStringSync(torrc);
         if (dartFunction(file.path.toNativeUtf8())) {
@@ -190,6 +193,7 @@ class Tor {
   }
 
   Future _shutdown() async {
+    print("Tor: shutting down! Control port is " + _controlPort.toString());
     events.add(port);
 
     if (_connectionChecker != null) _connectionChecker!.cancel();
@@ -200,6 +204,8 @@ class Tor {
 
       if (socket == null) {
         return;
+      } else {
+        _controlPort = -1;
       }
 
       // Wait for auth
@@ -258,8 +264,11 @@ class Tor {
 
     var socket;
     try {
+      print(
+          'Tor: trying to connect to control port ' + _controlPort.toString());
       socket = await Socket.connect('127.0.0.1', _controlPort);
     } on Exception catch (_) {
+      print("Tor: couldn't connect to control port!");
       return null;
     }
 
