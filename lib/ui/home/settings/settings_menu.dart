@@ -104,6 +104,15 @@ class SettingsMenuWidget extends StatelessWidget {
                       Share.shareFiles([appDocDir.path + "/tor/tor.log"]);
                     },
                   ),
+                  SizedBox(height: 50),
+                  MenuOption(
+                    label: "Tor Log2",
+                    onTap: () async {
+                      final Directory appDocDir =
+                          await getApplicationDocumentsDirectory();
+                      Share.shareFiles([appDocDir.path + "/tor_stdout.log"]);
+                    },
+                  ),
                 ]),
             Padding(
               padding: const EdgeInsets.only(bottom: 30.0),

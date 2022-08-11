@@ -17,6 +17,7 @@ dependencies:
   ffi: ^1.1.2
   flutter:
     sdk: flutter
+  logger: ^1.1.0
   path_provider: ^2.0.2
 
 

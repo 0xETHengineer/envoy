@@ -13,6 +13,35 @@ import 'dart:math';
 import 'package:path_provider/path_provider.dart';
 import 'package:crypto/crypto.dart';
 import 'package:convert/convert.dart';
+import 'package:logger/logger.dart';
+
+class FileOutput extends LogOutput {
+  FileOutput();
+
+  File? file;
+
+  @override
+  void init() {
+    super.init();
+    getApplicationDocumentsDirectory().then((appDocDir) {
+      file = new File(appDocDir.path + "/tor_stdout.log");
+    });
+  }
+
+  @override
+  void output(OutputEvent event) async {
+    if (file != null) {
+      for (var line in event.lines) {
+        await file!.writeAsString("${line.toString()}\n",
+            mode: FileMode.writeOnlyAppend);
+      }
+    } else {
+      for (var line in event.lines) {
+        print(line);
+      }
+    }
+  }
+}
 
 typedef TorStartRust = Bool Function(Pointer<Utf8>);
 typedef TorStartDart = bool Function(Pointer<Utf8>);
@@ -57,6 +86,8 @@ class Tor {
   String _password = "secret";
 
   static final Tor _instance = Tor._internal();
+
+  final _logger = Logger(printer: SimplePrinter(), output: FileOutput());
 
   factory Tor() {
     return _instance;
@@ -137,7 +168,7 @@ class Tor {
             '\n' +
             'SafeLogging 0';
 
-        print("TORRC: " + torrc);
+        _logger.d("TORRC: " + torrc);
 
         file.writeAsStringSync(torrc);
         if (dartFunction(file.path.toNativeUtf8())) {
@@ -193,7 +224,7 @@ class Tor {
   }
 
   Future _shutdown() async {
-    print("Tor: shutting down! Control port is " + _controlPort.toString());
+    _logger.d("Tor: shutting down! Control port is " + _controlPort.toString());
     events.add(port);
 
     if (_connectionChecker != null) _connectionChecker!.cancel();
@@ -234,7 +265,7 @@ class Tor {
 
   _checkIsCircuitEstablished() async {
     if (_controlPort > 0 && enabled && started) {
-      print("Tor: connecting to control port " + _controlPort.toString());
+      _logger.d("Tor: connecting to control port " + _controlPort.toString());
       Socket? socket = await _connectToControl();
 
       if (socket == null) {
@@ -264,19 +295,19 @@ class Tor {
 
     var socket;
     try {
-      print(
+      _logger.d(
           'Tor: trying to connect to control port ' + _controlPort.toString());
       socket = await Socket.connect('127.0.0.1', _controlPort);
     } on Exception catch (_) {
-      print("Tor: couldn't connect to control port!");
+      _logger.d("Tor: couldn't connect to control port!");
       return null;
     }
 
-    print('Tor: connected to control port!');
+    _logger.d('Tor: connected to control port!');
 
     // TODO: check if we have actually authenticated
     // socket.listen((List<int> event) {
-    //   print("Tor control: " + utf8.decode(event));
+    //   _logger.d("Tor control: " + utf8.decode(event));
     // });
 
     // Authenticate
