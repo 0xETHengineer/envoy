@@ -15,6 +15,13 @@ import 'package:crypto/crypto.dart';
 import 'package:convert/convert.dart';
 import 'package:logger/logger.dart';
 
+class MyFilter extends LogFilter {
+  @override
+  bool shouldLog(LogEvent event) {
+    return true;
+  }
+}
+
 class FileOutput extends LogOutput {
   FileOutput();
 
@@ -87,7 +94,7 @@ class Tor {
 
   static final Tor _instance = Tor._internal();
 
-  final _logger = Logger(printer: SimplePrinter(), output: FileOutput());
+  final _logger = Logger(printer: SimplePrinter(), output: FileOutput(), filter: MyFilter());
 
   factory Tor() {
     return _instance;
