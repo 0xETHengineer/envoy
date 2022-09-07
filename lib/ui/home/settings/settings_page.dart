@@ -30,6 +30,12 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     var s = Settings();
 
+    Map<String, String?> fiatMap = {
+      for (var fiat in supportedFiat) fiat.code: fiat.code
+    };
+
+    //fiatMap.addAll({S().envoy_settings_fiat_currency_nah: null});
+
     return Container(
       color: Colors.black,
       child: Padding(
@@ -41,10 +47,32 @@ class _SettingsPageState extends State<SettingsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SettingText(S().envoy_settings_fiat_currency),
-                SettingDropdown(supportedFiat.map((e) => e.code).toList(),
-                    s.displayFiat, s.setDisplayFiat),
+                SettingText("Show Fiat"),
+                SettingToggle(() => s.displayFiat() != null, (enabled) {
+                  setState(() {
+                    s.setDisplayFiat(enabled ? "USD" : null);
+                  });
+                }),
               ],
+            ),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              height: s.selectedFiat == null ? 0 : 16,
+              child: Divider(),
+            ),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              height: s.selectedFiat == null ? 0 : 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 16.0),
+                    child: SettingText("Currency"),
+                  ),
+                  SettingDropdown(fiatMap, s.displayFiat, s.setDisplayFiat),
+                ],
+              ),
             ),
             Divider(),
             Row(
