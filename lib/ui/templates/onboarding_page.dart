@@ -5,6 +5,7 @@
 import 'package:envoy/business/uniform_resource.dart';
 import 'package:envoy/ui/background.dart';
 import 'package:envoy/ui/envoy_colors.dart';
+import 'package:envoy/ui/tor_loader.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -86,24 +87,12 @@ class OnboardingPage extends StatelessWidget {
               future: qrCodeUrCryptoRequest,
               builder: (BuildContext context,
                   AsyncSnapshot<CryptoRequest> snapshot) {
-                if (snapshot.hasData) {
-                  return AnimatedQrImage.fromUrCryptoRequest(snapshot.data!
-                    ..fragmentLength = 20); // NOTE: Adjusted for Jean-Pierre
-                } else {
-                  return Column(
-                    children: [
-                      CircularProgressIndicator(
-                        color: EnvoyColors.darkTeal,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(Tor().enabled && !Tor().circuitEstablished
-                            ? S().envoy_video_player_connecting_tor
-                            : S().envoy_video_player_loading_tor),
-                      )
-                    ],
-                  );
-                }
+                // if (snapshot.hasData) {
+                //   return AnimatedQrImage.fromUrCryptoRequest(snapshot.data!
+                //     ..fragmentLength = 20); // NOTE: Adjusted for Jean-Pierre
+                // } else {
+                  return TorLoader();
+                //}
               }),
         ),
       );
