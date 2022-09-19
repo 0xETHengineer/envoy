@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+import 'dart:io';
+
 import 'package:envoy/business/updates_manager.dart';
 import 'package:envoy/business/account_manager.dart';
 import 'package:envoy/ui/envoy_colors.dart';
@@ -18,6 +20,7 @@ import 'business/fees.dart';
 import 'business/scv_server.dart';
 import 'business/video_manager.dart';
 import 'generated/l10n.dart';
+import 'package:local_auth/local_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,6 +73,20 @@ class MyApp extends StatelessWidget {
     final envoyBaseColor = Colors.transparent;
     final envoyTextTheme =
         GoogleFonts.montserratTextTheme(Theme.of(context).textTheme);
+
+    if (Platform.isAndroid || Platform.isIOS) {
+      LocalAuthentication()
+          .authenticate(
+              localizedReason: 'Please authenticate to enter Envoy',
+              /*options: AuthenticationOptions(biometricOnly: true)*/)
+          .then((didAuthenticate) {
+        if (didAuthenticate) {
+          print("You're in!");
+        } else {
+          print("Nice try!");
+        }
+      });
+    }
 
     return NeumorphicApp(
         localizationsDelegates: [
