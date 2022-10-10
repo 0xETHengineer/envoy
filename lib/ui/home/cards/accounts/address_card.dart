@@ -37,7 +37,7 @@ class AddressCard extends StatelessWidget with NavigationCard {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(25.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: QrTab(
                         title: account.name,
                         subtitle: S().envoy_address_explainer,

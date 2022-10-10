@@ -37,7 +37,7 @@ class PsbtCard extends StatelessWidget with NavigationCard {
 
     return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       Padding(
-          padding: const EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(10.0),
           child: QrTab(
             title: S().envoy_psbt_scan_qr,
             subtitle: S().envoy_psbt_explainer,

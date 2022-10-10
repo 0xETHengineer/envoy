@@ -96,7 +96,7 @@ class QrTab extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(16))),
                       child: Padding(
-                        padding: const EdgeInsets.all(14.0),
+                        padding: const EdgeInsets.all(0.0),
                         child: qr,
                       ),
                     ),

@@ -86,14 +86,87 @@ class _ScannerPageState extends State<ScannerPage> {
     _permissionsGranted = _permissionsCompleter.future;
     if (Platform.isAndroid || Platform.isIOS) {
       Permission.camera.status.then((status) {
-        if (status.isDenied) {
+        switch (status) {
+          case PermissionStatus.denied:
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Camera access denied!"),
+            ));
+
+            Permission.camera.request().then((status) {
+              switch (status) {
+                case PermissionStatus.denied:
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Camera access denied!"),
+                  ));
+                  break;
+                case PermissionStatus.granted:
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Camera access granted!"),
+                  ));
+                  Future.delayed(Duration(seconds: 5), () {
+                    _permissionsCompleter.complete();
+                  });
+                  break;
+                case PermissionStatus.restricted:
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Camera access restricted!"),
+                  ));
+                  break;
+                case PermissionStatus.limited:
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Camera access limited!"),
+                  ));
+                  break;
+                case PermissionStatus.permanentlyDenied:
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Camera access permanently denied!"),
+                  ));
+                  break;
+              }
+            });
+
+            break;
+          case PermissionStatus.granted:
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Camera access granted!"),
+            ));
+            _permissionsCompleter.complete();
+            break;
+          case PermissionStatus.restricted:
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Camera access restricted!"),
+            ));
+            break;
+          case PermissionStatus.limited:
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Camera access limited!"),
+            ));
+            break;
+          case PermissionStatus.permanentlyDenied:
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Camera access permanently denied!"),
+            ));
+            break;
+        }
+      });
+
+/*        if (status.isDenied) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Camera access denied!"),
+          ));
           Permission.camera.request().then((status) {
             if (status.isPermanentlyDenied) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Camera access permanently denied!"),
+              ));
               openAppSettings();
             }
             _permissionsCompleter.complete();
           });
         } else if (status.isPermanentlyDenied) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Camera access permanently denied!"),
+          ));
           openAppSettings();
           _permissionsCompleter.complete();
         } else {
@@ -102,13 +175,26 @@ class _ScannerPageState extends State<ScannerPage> {
       });
     } else {
       _permissionsCompleter.complete();
+    }*/
+    } else {
+      _permissionsCompleter.complete();
     }
   }
 
   @override
   void dispose() {
     controller?.dispose();
+
     super.dispose();
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller?.pauseCamera();
+    }
+    controller?.resumeCamera();
   }
 
   @override
@@ -134,11 +220,19 @@ class _ScannerPageState extends State<ScannerPage> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
+
     controller.scannedDataStream.listen((barcode) {
       if (barcode.code != null && barcode.code != _lastCodeDetected) {
         _lastCodeDetected = barcode.code!;
         _onDetect(barcode.code!);
       }
+    });
+
+    controller.pauseCamera();
+    controller.resumeCamera().then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Camera ON!"),
+      ));
     });
   }
 
@@ -154,7 +248,10 @@ class _ScannerPageState extends State<ScannerPage> {
                   onQRViewCreated: _onQRViewCreated,
                 );
               } else {
-                return SizedBox.shrink();
+                // TODO: Return a red container instead
+                return Container(
+                  color: Colors.red,
+                );
               }
             }),
         ViewFinder(),
