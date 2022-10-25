@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2022 Foundation Devices Inc.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[package]
+name = "whirlpool-ffi"
+version = "0.1.0"
+authors = ["Igor Cota <igor@foundationdevices.com>"]
+edition = "2018"
+
+[lib]
+name = "whirlpool_ffi"
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
