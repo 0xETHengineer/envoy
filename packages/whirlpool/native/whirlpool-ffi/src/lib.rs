@@ -5,6 +5,12 @@
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 
+#[link(name = "whirlpool-envoy")]
+extern {
+    fn start(source_length: bool) -> bool;
+}
+
+// TODO: do some isolate magic here to be able to communicate events
 pub struct WhirlpoolClient {
 
 }
