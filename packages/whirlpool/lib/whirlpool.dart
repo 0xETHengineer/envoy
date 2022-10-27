@@ -8,22 +8,8 @@ import 'package:ffi/ffi.dart';
 import 'dart:io' show Platform;
 import 'dart:typed_data';
 
-class StringArray extends Struct {
-  @Uint32()
-  external int len;
-  external Pointer<Pointer<Uint8>> strings;
-}
-
-class CharArray extends Struct {
-  @Uint32()
-  external int len;
-  external Pointer<Uint8> string;
-}
-
-typedef WhirlpoolRust = Pointer<Uint8> Function(
-    Pointer<Utf8>, Pointer<Uint8>, Int32, Int32);
-typedef WhirlpoolDart = Pointer<Uint8> Function(
-    Pointer<Utf8>, Pointer<Uint8>, int, int);
+typedef WhirlpoolRust = Pointer<Uint8> Function();
+typedef WhirlpoolDart = Pointer<Uint8> Function();
 
 typedef StopRust = Pointer<Uint8> Function(Pointer<Uint8>);
 typedef StopDart = Pointer<Uint8> Function(Pointer<Uint8>);
@@ -54,6 +40,12 @@ class Whirlpool {
 
   Whirlpool() {
     _lib = load(_libName);
+
+    final rustFunction =
+    _lib.lookup<NativeFunction<WhirlpoolRust>>('whirlpool');
+    final dartFunction = rustFunction.asFunction<WhirlpoolDart>();
+
+    _self = dartFunction();
   }
 }
 

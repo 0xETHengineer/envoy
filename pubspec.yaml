@@ -41,6 +41,8 @@ dependencies:
     path: packages/http_tor
   wallet:
     path: packages/wallet
+  whirlpool:
+    path: packages/whirlpool
 
   # qr_code_scanner fork
   qr_code_scanner:

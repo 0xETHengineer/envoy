@@ -4,6 +4,8 @@ use std::process::Command;
 
 
 fn main() {
+    println!("cargo:rerun-if-changed=../whirlpool-java/src/main/WhirlpoolEnvoy.java");
+
     let current_dir = env::current_dir().unwrap();
     let java_dir = current_dir.parent().unwrap().join("whirlpool-java");
 
