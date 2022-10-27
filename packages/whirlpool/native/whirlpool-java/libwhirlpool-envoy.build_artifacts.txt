@@ -2,8 +2,8 @@
 libwhirlpool-envoy.so
 
 [HEADER]
-libwhirlpool-envoy.h
 graal_isolate.h
-libwhirlpool-envoy_dynamic.h
+libwhirlpool-envoy.h
 graal_isolate_dynamic.h
+libwhirlpool-envoy_dynamic.h
 

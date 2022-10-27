@@ -14,3 +14,6 @@ name = "whirlpool_ffi"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
+
+[build-dependencies]
+bindgen = "0.61.0"
