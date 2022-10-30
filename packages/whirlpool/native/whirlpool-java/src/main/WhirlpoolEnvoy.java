@@ -9,7 +9,7 @@ public class WhirlpoolEnvoy {
 
   @CEntryPoint(name = "whirlpool")
   public static boolean whirpool(IsolateThread thread) {
-    System.out.println("Whirlpooling!");
+    System.out.println("Whirlpoolin'!");
     return true;
   }
 

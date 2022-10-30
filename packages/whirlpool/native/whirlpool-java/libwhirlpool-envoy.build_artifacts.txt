@@ -1,5 +1,5 @@
 [SHARED_LIB]
-libwhirlpool-envoy.so
+libwhirlpool-envoy.dylib
 
 [HEADER]
 libwhirlpool-envoy.h
