@@ -18,6 +18,8 @@ import 'package:envoy/ui/home/cards/devices/device_card.dart';
 import 'package:envoy/ui/home/cards/devices/device_list_tile.dart';
 import 'package:envoy/ui/pages/legal/passport_tou.dart';
 
+import '../../../spinner.dart';
+
 //ignore: must_be_immutable
 class DevicesCard extends StatefulWidget with TopLevelNavigationCard {
   DevicesCard({
@@ -72,21 +74,23 @@ class DevicesCardState extends State<DevicesCard>
           .push(DevicesList(navigator, addDevicesFunction: _showAddDevicePage));
     }
 
-    return IndexedTransitionSwitcher(
-      children: cardStack,
-      index: cardStack.length - 1,
-      transitionBuilder: (
-        Widget child,
-        Animation<double> primaryAnimation,
-        Animation<double> secondaryAnimation,
-      ) {
-        return FadeThroughTransition(
-          animation: primaryAnimation,
-          secondaryAnimation: secondaryAnimation,
-          child: child,
-        );
-      },
-    );
+    return Spinner();
+
+    // return IndexedTransitionSwitcher(
+    //   children: cardStack,
+    //   index: cardStack.length - 1,
+    //   transitionBuilder: (
+    //     Widget child,
+    //     Animation<double> primaryAnimation,
+    //     Animation<double> secondaryAnimation,
+    //   ) {
+    //     return FadeThroughTransition(
+    //       animation: primaryAnimation,
+    //       secondaryAnimation: secondaryAnimation,
+    //       child: child,
+    //     );
+    //   },
+    // );
   }
 
   @override

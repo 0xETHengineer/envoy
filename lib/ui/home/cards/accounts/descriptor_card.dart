@@ -37,11 +37,11 @@ class DescriptorCard extends StatelessWidget with NavigationCard {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       Padding(
         padding: const EdgeInsets.all(25.0),
-        child: QrTab(
+        child: AccountTab(
           title: account.name,
           subtitle: S().envoy_descriptor_explainer,
           account: account,
-          qr: QrImage(
+          widget: QrImage(
             data: descriptor,
             backgroundColor: Colors.white,
           ),

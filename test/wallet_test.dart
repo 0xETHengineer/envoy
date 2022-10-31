@@ -24,6 +24,22 @@ void main() async {
     expect(address2, "tb1q79crajpg7y838vmqngerx6eqv5tuytzlk7cx3n");
   });
 
+  test('Create PSBT', () async {
+    // var dir = await getApplicationDocumentsDirectory();
+    // var wallet = Wallet(
+    //     Random().nextInt(9999).toString(),
+    //     Network.Testnet,
+    //     "wpkh([96f9192b/84h/0h/0h]tpubDCxzhZZE31g2EqSv1UajMAw5Hd62htydz9r2XBkrccHgBh8uw3n62zr6Zjmj64tfTk8Tjxo6VctjUMAh5DXWTErfQPC6RmQhTdtNnXuTXTQ/0/*)",
+    //     "wpkh([96f9192b/84h/0h/0h]tpubDCxzhZZE31g2EqSv1UajMAw5Hd62htydz9r2XBkrccHgBh8uw3n62zr6Zjmj64tfTk8Tjxo6VctjUMAh5DXWTErfQPC6RmQhTdtNnXuTXTQ/1/*)")
+    //   ..init(dir.path);
+    //
+    // await wallet.sync("ssl://electrum.blockstream.info:60002", -1);
+    //
+    // Psbt psbt = await wallet.createPsbt("tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt", 1000, 0.000001);
+    //
+    // print(psbt.base64);
+  });
+
   test('Decode PSBT', () async {
     var dir = await getApplicationDocumentsDirectory();
     var wallet = Wallet(

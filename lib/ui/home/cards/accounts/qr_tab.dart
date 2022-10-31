@@ -8,17 +8,17 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:envoy/business/account.dart';
 import 'package:flutter_svg/svg.dart';
 
-class QrTab extends StatelessWidget {
+class AccountTab extends StatelessWidget {
   final String title;
   final String subtitle;
   final Account account;
-  final Widget qr;
+  final Widget widget;
 
-  QrTab(
+  AccountTab(
       {required this.account,
       required this.title,
       required this.subtitle,
-      required this.qr});
+      required this.widget});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class QrTab extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(16))),
                       child: Padding(
                         padding: const EdgeInsets.all(14.0),
-                        child: qr,
+                        child: widget,
                       ),
                     ),
                   ],

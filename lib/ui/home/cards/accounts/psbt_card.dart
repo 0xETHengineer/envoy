@@ -18,6 +18,8 @@ import 'package:envoy/ui/envoy_icons.dart';
 import 'package:envoy/business/settings.dart';
 import 'package:envoy/business/account.dart';
 
+import 'broadcast_card.dart';
+
 //ignore: must_be_immutable
 class PsbtCard extends StatelessWidget with NavigationCard {
   final Psbt psbt;
@@ -38,11 +40,11 @@ class PsbtCard extends StatelessWidget with NavigationCard {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       Padding(
           padding: const EdgeInsets.all(25.0),
-          child: QrTab(
+          child: AccountTab(
             title: S().envoy_psbt_scan_qr,
             subtitle: S().envoy_psbt_explainer,
             account: account,
-            qr: AnimatedQrImage(
+            widget: AnimatedQrImage(
               base64Decode(psbt.base64),
               urType: "crypto-psbt",
               binaryCborTag: true,
@@ -72,23 +74,13 @@ class PsbtCard extends StatelessWidget with NavigationCard {
                       .push(MaterialPageRoute(builder: (context) {
                     return ScannerPage.tx((psbt) {
                       print(psbt);
-                      account.wallet.decodePsbt(psbt).then((decoded) {
-                        account.wallet
-                            .broadcastTx(
-                                Settings()
-                                    .electrumAddress(account.wallet.network),
-                                Tor().port,
-                                decoded.rawTx)
-                            .then((_) {
-                          navigator!.pop(depth: 3);
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(S().envoy_psbt_transaction_sent),
-                          ));
-                        }, onError: (_) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(S().envoy_psbt_transaction_not_sent),
-                          ));
-                        });
+                      account.wallet.decodePsbt(psbt).then((psbt) {
+                        // Goto broadcast card
+                        navigator!.push(BroadcastCard(
+                          account,
+                          psbt,
+                          navigationCallback: navigator,
+                        ));
                       });
                     });
                   }));

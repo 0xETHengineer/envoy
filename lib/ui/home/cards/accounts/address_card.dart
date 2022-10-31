@@ -38,11 +38,11 @@ class AddressCard extends StatelessWidget with NavigationCard {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(25.0),
-                    child: QrTab(
+                    child: AccountTab(
                         title: account.name,
                         subtitle: S().envoy_address_explainer,
                         account: account,
-                        qr: QrImage(
+                        widget: QrImage(
                           data: snapshot.data!,
                           backgroundColor: Colors.white,
                         )),
