@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2022 Foundation Devices Inc.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+FROM sickcodes/docker-osx:auto
+
+MAINTAINER Igor Cota <igor@foundationdevices.com>
+
+RUN uname
