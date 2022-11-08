@@ -15,9 +15,9 @@ fn main() {
         .status().unwrap();
 
     // Compile bytecode to native library
-    Command::new("native-image").args(&["--shared", "-jar", "target/whirlpool-envoy-0.0.1.jar", "libwhirlpool-envoy"])
-        .current_dir(java_dir)
-        .status().unwrap();
+    // Command::new("native-image").args(&["--shared", "-jar", "target/whirlpool-envoy-0.0.1.jar", "libwhirlpool-envoy"])
+    //     .current_dir(java_dir)
+    //     .status().unwrap();
 
     // Generate bindings.rs from native-image header files
     let bindings = bindgen::Builder::default()
