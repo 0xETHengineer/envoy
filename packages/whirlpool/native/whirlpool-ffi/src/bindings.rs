@@ -15,7 +15,7 @@ pub struct __graal_isolatethread_t {
 }
 pub type graal_isolatethread_t = __graal_isolatethread_t;
 pub type __graal_uword = ::std::os::raw::c_ulong;
-pub const __graal_create_isolate_params_version: _bindgen_ty_1 = 4;
+pub const __graal_create_isolate_params_version: _bindgen_ty_1 = 1;
 pub type _bindgen_ty_1 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -27,8 +27,6 @@ pub struct __graal_create_isolate_params_t {
     pub _reserved_1: ::std::os::raw::c_int,
     pub _reserved_2: *mut *mut ::std::os::raw::c_char,
     pub pkey: ::std::os::raw::c_int,
-    pub _reserved_3: ::std::os::raw::c_char,
-    pub _reserved_4: ::std::os::raw::c_char,
 }
 #[test]
 fn bindgen_test_layout___graal_create_isolate_params_t() {
@@ -117,26 +115,6 @@ fn bindgen_test_layout___graal_create_isolate_params_t() {
             stringify!(pkey)
         )
     );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._reserved_3) as usize - ptr as usize },
-        52usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__graal_create_isolate_params_t),
-            "::",
-            stringify!(_reserved_3)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._reserved_4) as usize - ptr as usize },
-        53usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__graal_create_isolate_params_t),
-            "::",
-            stringify!(_reserved_4)
-        )
-    );
 }
 pub type graal_create_isolate_params_t = __graal_create_isolate_params_t;
 extern "C" {
@@ -176,6 +154,9 @@ extern "C" {
         argc: ::std::os::raw::c_int,
         argv: *mut *mut ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vmLocatorSymbol(thread: *mut graal_isolatethread_t);
 }
 extern "C" {
     pub fn whirlpool(arg1: *mut graal_isolatethread_t) -> ::std::os::raw::c_int;

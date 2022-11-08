@@ -15,6 +15,9 @@ To build Envoy you will need:
 
 After you've set up the two dependencies building is easy. For an Android build run:
 ````
+wget https://github.com/gluonhq/graal/releases/download/gluon-22.1.0.1-Final/graalvm-svm-java17-linux-gluon-22.1.0.1-Final.tar.gz
+tar -xvf
+export GRAALVM_HOME=~/opt/graalvm-svm-java17-linux-gluon-22.1.0.1-Final
 ./build_ffi_android.sh
 flutter build apk
 ````

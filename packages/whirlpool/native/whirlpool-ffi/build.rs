@@ -10,7 +10,7 @@ fn main() {
     let java_dir = current_dir.parent().unwrap().join("whirlpool-java");
 
     // Compile WhirlpoolEnvoy to bytecode
-    Command::new("mvn").args(&["clean", "install"])
+    Command::new("mvn").args(&["gluonfx:sharedlib"])
         .current_dir(java_dir.clone())
         .status().unwrap();
 
@@ -19,10 +19,17 @@ fn main() {
     //     .current_dir(java_dir)
     //     .status().unwrap();
 
+    let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
+
+    let include_path = match target_os.as_str() {
+        "linux" => { "../whirlpool-java/target/gluonfx/x86_64-linux/gvm/whirlpool-envoy" }
+        _ => { panic!("Unknown target OS") }
+    };
+
     // Generate bindings.rs from native-image header files
     let bindings = bindgen::Builder::default()
-        .header("../whirlpool-java/libwhirlpool-envoy.h")
-        .clang_arg("-I../whirlpool-java")
+        .header(include_path.to_owned() + "/whirlpoolenvoy.h")
+        .clang_arg("-I".to_owned() + include_path)
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .generate()
         .expect("Unable to generate bindings");
@@ -31,5 +38,5 @@ fn main() {
         .write_to_file(current_dir.join("src").join("bindings.rs"))
         .expect("Couldn't write bindings!");
 
-    println!("cargo:rustc-link-search={}/../whirlpool-java", current_dir.display());
+    println!("cargo:rustc-link-search={}/{}", current_dir.display(), include_path);
 }
