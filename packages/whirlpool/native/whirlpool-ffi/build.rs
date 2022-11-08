@@ -10,7 +10,7 @@ fn main() {
     let java_dir = current_dir.parent().unwrap().join("whirlpool-java");
 
     // Compile WhirlpoolEnvoy to bytecode
-    Command::new("mvn").args(&["gluonfx:sharedlib"])
+    Command::new("mvn").args(&["clean", "gluonfx:sharedlib"])
         .current_dir(java_dir.clone())
         .status().unwrap();
 
