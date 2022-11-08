@@ -1,9 +1,0 @@
-[SHARED_LIB]
-libwhirlpool-envoy.dylib
-
-[HEADER]
-libwhirlpool-envoy.h
-graal_isolate.h
-libwhirlpool-envoy_dynamic.h
-graal_isolate_dynamic.h
-
