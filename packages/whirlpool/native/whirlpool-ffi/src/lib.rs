@@ -24,14 +24,14 @@ pub struct WhirlpoolClient {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn whirlpool(
+pub unsafe extern "C" fn whirlpool_start(
 ) -> *mut WhirlpoolClient {
 
     print!("Rust: whirlpool!");
 
-    let thread = null_mut();
+    let mut thread: *mut graal_isolatethread_t = null_mut();
 
-    if graal_create_isolate(null_mut(), null_mut(), thread) != 0 {
+    if graal_create_isolate(null_mut(), null_mut(), &mut thread) != 0 {
         panic!("graal_create_isolate error");
     }
 
@@ -44,7 +44,7 @@ pub unsafe extern "C" fn whirlpool(
     // double distance = runGH(thread, lat1, lon1, lat2, lon2);
     // std::cout << "Distance calculated by GraphHopper " << distance << std::endl;
 
-    let ret = bindings::whirlpool(*thread);
+    let ret = bindings::whirlpool(thread);
 
     let whirlpool_box = Box::new(WhirlpoolClient{});
     Box::into_raw(whirlpool_box)

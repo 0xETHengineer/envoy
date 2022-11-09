@@ -8,11 +8,11 @@ import 'package:ffi/ffi.dart';
 import 'dart:io' show Platform;
 import 'dart:typed_data';
 
-typedef WhirlpoolRust = Pointer<Uint8> Function();
-typedef WhirlpoolDart = Pointer<Uint8> Function();
+typedef WhirlpoolStartRust = Pointer<Uint8> Function();
+typedef WhirlpoolStartDart = Pointer<Uint8> Function();
 
-typedef StopRust = Pointer<Uint8> Function(Pointer<Uint8>);
-typedef StopDart = Pointer<Uint8> Function(Pointer<Uint8>);
+typedef WhirlpoolStopRust = Pointer<Uint8> Function(Pointer<Uint8>);
+typedef WhirlpoolStopDart = Pointer<Uint8> Function(Pointer<Uint8>);
 
 DynamicLibrary load(name) {
   if (Platform.isAndroid) {
@@ -42,8 +42,8 @@ class Whirlpool {
     _lib = load(_libName);
 
     final rustFunction =
-    _lib.lookup<NativeFunction<WhirlpoolRust>>('whirlpool');
-    final dartFunction = rustFunction.asFunction<WhirlpoolDart>();
+    _lib.lookup<NativeFunction<WhirlpoolStartRust>>('whirlpool_start');
+    final dartFunction = rustFunction.asFunction<WhirlpoolStartDart>();
 
     _self = dartFunction();
   }

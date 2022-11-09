@@ -21,14 +21,16 @@ fn main() {
     let lib_path = format!("../whirlpool-java/target/gluonfx/{}", native_image_target);
     let include_path = format!("{}/gvm/whirlpool-envoy", lib_path);
 
-    let gluonfx_target = match target_os.as_str() {
-        "android" => { "-Pandroid" }
-        "ios" => { "-Pios" }
-        _ => { "" }
+    let mut maven_args = vec!["gluonfx:sharedlib"];
+
+    match target_os.as_str() {
+        "android" => { maven_args.push("-Pandroid"); }
+        "ios" => { maven_args.push("-Pios"); }
+        _ => { }
     };
 
     // Compile WhirlpoolEnvoy to bytecode
-    Command::new("mvn").args(&["clean", "gluonfx:sharedlib", gluonfx_target])
+    Command::new("mvn").args(maven_args)
         .current_dir(java_dir.clone())
         .status().unwrap();
 
