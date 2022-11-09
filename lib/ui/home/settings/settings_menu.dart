@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:envoy/ui/home/settings/about_page.dart';
 import 'package:envoy/business/settings.dart';
 import 'package:envoy/generated/l10n.dart';
+import 'package:whirlpool/whirlpool.dart';
 
 class SettingsMenu extends StatefulWidget {
   @override
@@ -92,16 +93,14 @@ class SettingsMenuWidget extends StatelessWidget {
                       callback(AboutPage());
                     },
                   ),
-                  // SizedBox(height: 50),
-                  // MenuOption(
-                  //   label: "Onboard",
-                  //   onTap: () {
-                  //     Navigator.of(context)
-                  //         .push(MaterialPageRoute(builder: (context) {
-                  //       return OnboardingWelcomePage();
-                  //     }));
-                  //   },
-                  // ),
+                  SizedBox(height: 50),
+                  MenuOption(
+                    label: "Whirlpool",
+                    onTap: () {
+                      var whirlpool = Whirlpool();
+                      print(whirlpool);
+                    },
+                  ),
                 ]),
             Padding(
               padding: const EdgeInsets.only(bottom: 30.0),

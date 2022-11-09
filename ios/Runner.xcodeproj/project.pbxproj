@@ -18,6 +18,8 @@
 		78CFC742291BC27600A3AFDC /* libur_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C3760C27F831AC005559E4 /* libur_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		78CFC743291BC27D00A3AFDC /* libtor_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C3760A27F831A3005559E4 /* libtor_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		78CFC744291BC28300A3AFDC /* libhttp_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C3760827F83192005559E4 /* libhttp_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
+		78CFC746291BEAAB00A3AFDC /* whirlpool-envoy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CFC745291BEAAB00A3AFDC /* whirlpool-envoy.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		78CFC748291BEBD100A3AFDC /* libwhirlpool_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CFC747291BEBD100A3AFDC /* libwhirlpool_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -53,6 +55,8 @@
 		78C3761227F831D5005559E4 /* libtor_ffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtor_ffi.a; path = "../target/aarch64-apple-ios-sim/debug/libtor_ffi.a"; sourceTree = "<group>"; };
 		78C3761427F831DC005559E4 /* libur_ffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libur_ffi.a; path = "../target/aarch64-apple-ios-sim/debug/libur_ffi.a"; sourceTree = "<group>"; };
 		78C3761627F831E5005559E4 /* libwallet_ffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_ffi.a; path = "../target/aarch64-apple-ios-sim/debug/libwallet_ffi.a"; sourceTree = "<group>"; };
+		78CFC745291BEAAB00A3AFDC /* whirlpool-envoy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "whirlpool-envoy.dylib"; path = "../packages/whirlpool/native/whirlpool-java/target/gluonfx/arm64-ios/whirlpool-envoy.dylib"; sourceTree = "<group>"; };
+		78CFC747291BEBD100A3AFDC /* libwhirlpool_ffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwhirlpool_ffi.a; path = "../target/aarch64-apple-ios/debug/libwhirlpool_ffi.a"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		95A836B9AC41F16548DCAC7D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				78CFC744291BC28300A3AFDC /* libhttp_ffi.a in Frameworks */,
 				A32C2D9F135BF88BF0BCD327 /* Pods_Runner.framework in Frameworks */,
 				78CFC73F291BC26D00A3AFDC /* libtor_ffi.a in Frameworks */,
+				78CFC748291BEBD100A3AFDC /* libwhirlpool_ffi.a in Frameworks */,
+				78CFC746291BEAAB00A3AFDC /* whirlpool-envoy.dylib in Frameworks */,
 				78CFC740291BC27000A3AFDC /* libhttp_ffi.a in Frameworks */,
 				78CFC742291BC27600A3AFDC /* libur_ffi.a in Frameworks */,
 			);
@@ -89,6 +95,8 @@
 		13500A27E223965968B383DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				78CFC747291BEBD100A3AFDC /* libwhirlpool_ffi.a */,
+				78CFC745291BEAAB00A3AFDC /* whirlpool-envoy.dylib */,
 				78C3761627F831E5005559E4 /* libwallet_ffi.a */,
 				78C3761427F831DC005559E4 /* libur_ffi.a */,
 				78C3761227F831D5005559E4 /* libtor_ffi.a */,
@@ -391,11 +399,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = F56X5L36T7;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F56X5L36T7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 x86_64";
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -423,8 +430,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.foundationdevices.envoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = EnvoyAppStoreV2;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = EnvoyProvisioningV3;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -551,11 +557,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = F56X5L36T7;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F56X5L36T7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 x86_64";
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -583,8 +588,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.foundationdevices.envoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = EnvoyAppStoreV2;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = EnvoyProvisioningV3;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -602,12 +606,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F56X5L36T7;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F56X5L36T7;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 x86_64";
@@ -622,8 +625,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "../target/aarch64-apple-ios-sim/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.foundationdevices.envoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = EnvoyAppStoreV2;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = EnvoyProvisioningV3;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

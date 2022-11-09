@@ -44,7 +44,7 @@ pub unsafe extern "C" fn whirlpool(
     // double distance = runGH(thread, lat1, lon1, lat2, lon2);
     // std::cout << "Distance calculated by GraphHopper " << distance << std::endl;
 
-    //let ret = bindings::whirlpool();
+    let ret = bindings::whirlpool(*thread);
 
     let whirlpool_box = Box::new(WhirlpoolClient{});
     Box::into_raw(whirlpool_box)
