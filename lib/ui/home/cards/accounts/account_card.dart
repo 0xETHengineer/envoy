@@ -53,6 +53,9 @@ class _AccountCardState extends State<AccountCard> {
   void initState() {
     super.initState();
 
+    // Redraw when we fetch exchange rate
+    ExchangeRate().addListener(_redraw);
+
     // Redraw when we there are changes in accounts
     AccountManager().addListener(_redraw);
   }
@@ -61,6 +64,7 @@ class _AccountCardState extends State<AccountCard> {
   void dispose() {
     super.dispose();
     AccountManager().removeListener(_redraw);
+    ExchangeRate().removeListener(_redraw);
   }
 
   @override

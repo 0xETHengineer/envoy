@@ -18,6 +18,7 @@ import 'package:envoy/ui/home/cards/accounts/account_list_tile.dart';
 import 'package:envoy/ui/home/cards/navigation_card.dart';
 import 'package:animations/animations.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
+import 'package:envoy/business/exchange_rate.dart';
 
 //ignore: must_be_immutable
 class AccountsCard extends StatefulWidget with TopLevelNavigationCard {
@@ -51,6 +52,9 @@ class AccountsCardState extends State<AccountsCard>
   void initState() {
     super.initState();
 
+    // Redraw when we fetch exchange rate
+    ExchangeRate().addListener(_redraw);
+
     // Redraw when we there are changes in accounts
     AccountManager().addListener(_redraw);
   }
@@ -59,6 +63,7 @@ class AccountsCardState extends State<AccountsCard>
   void dispose() {
     super.dispose();
     AccountManager().removeListener(_redraw);
+    ExchangeRate().removeListener(_redraw);
   }
 
   @override
@@ -117,6 +122,9 @@ class _AccountsListState extends State<AccountsList> {
   void initState() {
     super.initState();
 
+    // Redraw when we fetch exchange rate
+    ExchangeRate().addListener(_redraw);
+
     // Redraw when we there are changes in devices
     AccountManager().addListener(_redraw);
   }
@@ -125,6 +133,7 @@ class _AccountsListState extends State<AccountsList> {
   void dispose() {
     super.dispose();
     AccountManager().removeListener(_redraw);
+    ExchangeRate().removeListener(_redraw);
   }
 
   @override
