@@ -13,7 +13,7 @@ use std::os::raw::c_char;
 use std::ptr::{null, null_mut};
 use crate::bindings::{graal_create_isolate, graal_isolatethread_t};
 
-#[link(name = ":whirlpoolenvoy.so")]
+#[link(name = "whirlpool-envoy")]
 extern {
     fn start(source_length: bool) -> bool;
 }

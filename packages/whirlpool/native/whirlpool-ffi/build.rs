@@ -14,10 +14,12 @@ fn main() {
     let native_image_target = match target_os.as_str() {
         "linux" => { "x86_64-linux" }
         "ios" => { "arm64-ios" }
+        "android" => { "aarch64-android" }
         _ => { panic!("Unknown target OS") }
     };
 
-    let include_path = format!("../whirlpool-java/target/gluonfx/{}/gvm/whirlpool-envoy", native_image_target);
+    let lib_path = format!("../whirlpool-java/target/gluonfx/{}", native_image_target);
+    let include_path = format!("{}/gvm/whirlpool-envoy", lib_path);
 
     let gluonfx_target = match target_os.as_str() {
         "android" => { "-Pandroid" }
@@ -42,5 +44,5 @@ fn main() {
         .write_to_file(current_dir.join("src").join("bindings.rs"))
         .expect("Couldn't write bindings!");
 
-    println!("cargo:rustc-link-search={}/{}", current_dir.display(), include_path);
+    println!("cargo:rustc-link-search={}/{}", current_dir.display(), lib_path);
 }
