@@ -18,8 +18,9 @@
 		78CFC742291BC27600A3AFDC /* libur_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C3760C27F831AC005559E4 /* libur_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		78CFC743291BC27D00A3AFDC /* libtor_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C3760A27F831A3005559E4 /* libtor_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		78CFC744291BC28300A3AFDC /* libhttp_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C3760827F83192005559E4 /* libhttp_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
-		78CFC746291BEAAB00A3AFDC /* whirlpool-envoy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CFC745291BEAAB00A3AFDC /* whirlpool-envoy.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		78CFC746291BEAAB00A3AFDC /* whirlpool-envoy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CFC745291BEAAB00A3AFDC /* whirlpool-envoy.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		78CFC748291BEBD100A3AFDC /* libwhirlpool_ffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CFC747291BEBD100A3AFDC /* libwhirlpool_ffi.a */; settings = {ATTRIBUTES = (Weak, ); }; };
+		78CFC74D291D34B300A3AFDC /* whirlpool-envoy.dylib in Embed Frameworks (1 item) */ = {isa = PBXBuildFile; fileRef = 78CFC745291BEAAB00A3AFDC /* whirlpool-envoy.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -27,14 +28,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
+		9705A1C41CF9048500538489 /* Embed Frameworks (1 item) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				78CFC74D291D34B300A3AFDC /* whirlpool-envoy.dylib in Embed Frameworks (1 item) */,
 			);
-			name = "Embed Frameworks";
+			name = "Embed Frameworks (1 item)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -178,7 +180,7 @@
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
-				9705A1C41CF9048500538489 /* Embed Frameworks */,
+				9705A1C41CF9048500538489 /* Embed Frameworks (1 item) */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				87738A51227A128470B3E277 /* [CP] Embed Pods Frameworks */,
 			);
