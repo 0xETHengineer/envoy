@@ -164,3 +164,6 @@ extern "C" {
 extern "C" {
     pub fn stop(arg1: *mut graal_isolatethread_t) -> ::std::os::raw::c_int;
 }
+extern "C" {
+    pub fn get_last_error(arg1: *mut graal_isolatethread_t) -> *mut ::std::os::raw::c_char;
+}

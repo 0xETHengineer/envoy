@@ -20,7 +20,7 @@ extern {
 
 // TODO: do some isolate magic here to be able to communicate events
 pub struct WhirlpoolClient {
-
+    graal_thread: *mut graal_isolatethread_t,
 }
 
 #[no_mangle]
@@ -35,18 +35,14 @@ pub unsafe extern "C" fn whirlpool_start(
         panic!("graal_create_isolate error");
     }
 
-    //graal_isolatethread_t *thread = NULL;
-    // if (graal_create_isolate(NULL, NULL, &thread) != 0) {
-    //   fprintf(stderr, "graal_create_isolate error\n");
-    //   return 1;
-    // }
-    // ...
-    // double distance = runGH(thread, lat1, lon1, lat2, lon2);
-    // std::cout << "Distance calculated by GraphHopper " << distance << std::endl;
+    if bindings::whirlpool(thread) != 1 {
+        let error = CStr::from_ptr(bindings::get_last_error(thread));
+        panic!("{}", error.to_str().unwrap());
+    }
 
-    let ret = bindings::whirlpool(thread);
-
-    let whirlpool_box = Box::new(WhirlpoolClient{});
+    let whirlpool_box = Box::new(WhirlpoolClient{
+        graal_thread: thread
+    });
     Box::into_raw(whirlpool_box)
 }
 
@@ -56,4 +52,6 @@ pub unsafe extern "C" fn whirlpool_stop(whirlpool: *mut WhirlpoolClient) {
         assert!(!whirlpool.is_null());
         &mut *whirlpool
     };
+
+    bindings::stop(whirlpool.graal_thread);
 }
