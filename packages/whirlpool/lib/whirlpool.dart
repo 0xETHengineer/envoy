@@ -8,11 +8,13 @@ import 'package:ffi/ffi.dart';
 import 'dart:io' show Platform;
 import 'dart:typed_data';
 
-typedef WhirlpoolStartRust = Pointer<Uint8> Function();
-typedef WhirlpoolStartDart = Pointer<Uint8> Function();
+import 'generated_bindings.dart';
 
-typedef WhirlpoolStopRust = Pointer<Uint8> Function(Pointer<Uint8>);
-typedef WhirlpoolStopDart = Pointer<Uint8> Function(Pointer<Uint8>);
+// typedef WhirlpoolStartRust = Pointer<Uint8> Function();
+// typedef WhirlpoolStartDart = Pointer<Uint8> Function();
+//
+// typedef WhirlpoolStopRust = Pointer<Uint8> Function(Pointer<Uint8>);
+// typedef WhirlpoolStopDart = Pointer<Uint8> Function(Pointer<Uint8>);
 
 DynamicLibrary load(name) {
   if (Platform.isAndroid) {
@@ -35,17 +37,17 @@ class Whirlpool {
   static late String _libName = "whirlpool_ffi";
   static late DynamicLibrary _lib;
 
-  Pointer<Uint8> _self = Pointer<Uint8>.fromAddress(0);
-
+  late Pointer<WhirlpoolClient> _self;
 
   Whirlpool() {
     _lib = load(_libName);
+    _self = NativeLibrary(_lib).whirlpool_start();
 
-    final rustFunction =
-    _lib.lookup<NativeFunction<WhirlpoolStartRust>>('whirlpool_start');
-    final dartFunction = rustFunction.asFunction<WhirlpoolStartDart>();
-
-    _self = dartFunction();
+    // final rustFunction =
+    // _lib.lookup<NativeFunction<WhirlpoolStartRust>>('whirlpool_start');
+    // final dartFunction = rustFunction.asFunction<WhirlpoolStartDart>();
+    //
+    // _self = dartFunction();
   }
 }
 

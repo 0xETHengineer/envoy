@@ -1,7 +1,7 @@
 use std::env;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use cbindgen::Config;
+use cbindgen::{Config, Language};
 
 fn main() {
     println!("cargo:rerun-if-changed=../whirlpool-java/src/main/WhirlpoolEnvoy.java");
@@ -35,14 +35,14 @@ fn main() {
         .status().unwrap();
 
     // Generate bindings.rs from native-image header files
-    let bindings = bindgen::Builder::default()
+    let java_bindings = bindgen::Builder::default()
         .header(include_path.to_owned() + "/whirlpoolenvoy.h")
         .clang_arg("-I".to_owned() + include_path.as_str())
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .generate()
         .expect("Unable to generate bindings");
 
-    bindings
+    java_bindings
         .write_to_file(current_dir.join("src").join("bindings.rs"))
         .expect("Couldn't write bindings!");
 
@@ -56,7 +56,7 @@ fn main() {
         .to_string();
 
     let config = Config {
-        namespace: Some(String::from("ffi")),
+        language: Language::C,
         ..Default::default()
     };
 
