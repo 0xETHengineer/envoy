@@ -1,7 +1,7 @@
 use std::env;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-
+use cbindgen::Config;
 
 fn main() {
     println!("cargo:rerun-if-changed=../whirlpool-java/src/main/WhirlpoolEnvoy.java");
@@ -18,8 +18,8 @@ fn main() {
         _ => { panic!("Unknown target OS") }
     };
 
-    let lib_path = format!("../whirlpool-java/target/gluonfx/{}", native_image_target);
-    let include_path = format!("{}/gvm/whirlpool-envoy", lib_path);
+    let java_lib_path = format!("../whirlpool-java/target/gluonfx/{}", native_image_target);
+    let include_path = format!("{}/gvm/whirlpool-envoy", java_lib_path);
 
     let mut maven_args = vec!["gluonfx:sharedlib"];
 
@@ -46,5 +46,31 @@ fn main() {
         .write_to_file(current_dir.join("src").join("bindings.rs"))
         .expect("Couldn't write bindings!");
 
-    println!("cargo:rustc-link-search={}/{}", current_dir.display(), lib_path);
+    // Create C header files for Dart
+    let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let package_name = env::var("CARGO_PKG_NAME").unwrap();
+
+    let output_file = target_dir()
+        .join(format!("{}.hpp", package_name))
+        .display()
+        .to_string();
+
+    let config = Config {
+        namespace: Some(String::from("ffi")),
+        ..Default::default()
+    };
+
+    cbindgen::generate_with_config(&crate_dir, config)
+        .unwrap()
+        .write_to_file(&output_file);
+
+    println!("cargo:rustc-link-search={}/{}", current_dir.display(), java_lib_path);
+}
+
+fn target_dir() -> PathBuf {
+    if let Ok(target) = env::var("CARGO_TARGET_DIR") {
+        PathBuf::from(target)
+    } else {
+        PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("target")
+    }
 }
