@@ -2,6 +2,8 @@ import com.samourai.whirlpool.client.whirlpool.WhirlpoolClientConfig;
 import com.samourai.whirlpool.client.whirlpool.WhirlpoolClientImpl;
 import org.graalvm.nativeimage.IsolateThread;
 import org.graalvm.nativeimage.c.function.CEntryPoint;
+import org.graalvm.nativeimage.c.function.CFunctionPointer;
+import org.graalvm.nativeimage.c.function.InvokeCFunctionPointer;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.nativeimage.c.type.CTypeConversion;
 
@@ -10,13 +12,23 @@ public class WhirlpoolEnvoy {
   public static WhirlpoolClientImpl client;
   public static String lastError = "hello error";
 
+  public static CFunctionPointer rustCallback;
+
+  interface RustCallback extends CFunctionPointer {
+    @InvokeCFunctionPointer
+    void call(boolean hello);
+  }
+
   public static void main(String[] args) {
     System.out.println("Hello from WhirlpoolEnvoy!");
   }
 
   @CEntryPoint(name = "whirlpool")
-  public static boolean whirlpool(IsolateThread thread) {
-    System.out.println("Whirlpoolinggggg!");
+  public static boolean whirlpool(IsolateThread thread, RustCallback callback) {
+    System.out.println("Whirlpooling!");
+
+    rustCallback = callback;
+    callback.call(true);
 
     WhirlpoolClientConfig config =
         new WhirlpoolClientConfig(null, null, null, null, null, null, null);

@@ -159,7 +159,10 @@ extern "C" {
     pub fn vmLocatorSymbol(thread: *mut graal_isolatethread_t);
 }
 extern "C" {
-    pub fn whirlpool(arg1: *mut graal_isolatethread_t) -> ::std::os::raw::c_int;
+    pub fn whirlpool(
+        arg1: *mut graal_isolatethread_t,
+        arg2: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn stop(arg1: *mut graal_isolatethread_t) -> ::std::os::raw::c_int;

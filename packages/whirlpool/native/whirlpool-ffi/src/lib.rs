@@ -8,7 +8,7 @@
 #[allow(dead_code)]
 mod bindings;
 
-use std::ffi::{CStr, CString};
+use std::ffi::{c_void, CStr, CString};
 use std::os::raw::c_char;
 use std::ptr::{null, null_mut};
 use crate::bindings::{graal_create_isolate, graal_isolatethread_t};
@@ -24,6 +24,12 @@ pub struct WhirlpoolClient {
 }
 
 #[no_mangle]
+pub unsafe extern "C" fn rust_callback(hello: bool
+) {
+    print!("hello callback!");
+}
+
+#[no_mangle]
 pub unsafe extern "C" fn whirlpool_start(
 ) -> *mut WhirlpoolClient {
 
@@ -35,7 +41,7 @@ pub unsafe extern "C" fn whirlpool_start(
         panic!("graal_create_isolate error");
     }
 
-    if bindings::whirlpool(thread) != 1 {
+    if bindings::whirlpool(thread, rust_callback as *mut c_void) != 1 {
         let error = CStr::from_ptr(bindings::get_last_error(thread));
         panic!("{}", error.to_str().unwrap());
     }
