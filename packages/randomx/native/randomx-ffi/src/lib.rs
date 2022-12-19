@@ -44,7 +44,7 @@ pub struct RandomXHash {
 pub unsafe extern "C" fn randomx_get(difficulty: u32) -> RandomXHash {
     //println!("{}",difficulty);
 
-    let chunks = 4;
+    let chunks = 1;
 
     let handles: Vec<JoinHandle<String>> = (0..chunks).map(|i| {
         let builder =
@@ -53,7 +53,7 @@ pub unsafe extern "C" fn randomx_get(difficulty: u32) -> RandomXHash {
         builder.spawn(move || {
             let now = Instant::now();
 
-            let flags = RandomXFlag::get_recommended_flags() | RandomXFlag::FLAG_FULL_MEM;
+            let flags = (RandomXFlag::get_recommended_flags() | RandomXFlag::FLAG_FULL_MEM) ^ RandomXFlag::FLAG_JIT;
             let key = "envoy";
             let input = rand::thread_rng().gen::<[u8; 16]>();
             let cache = RandomXCache::new(flags, key.as_bytes()).unwrap();
