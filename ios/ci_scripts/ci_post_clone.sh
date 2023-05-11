@@ -25,6 +25,6 @@ export PATH="$PATH:$HOME/.cargo/bin"
 ./build_ffi_ios.sh
 
 # Install CocoaPods dependencies.
-cd ios && pod install # run `pod install` in the `ios` directory.
+flutter clean && flutter pub get && cd ios && pod install # run `pod install` in the `ios` directory.
 
 exit 0
