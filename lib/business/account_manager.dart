@@ -117,7 +117,7 @@ class AccountManager extends ChangeNotifier {
     // TODO: look & feel of hot wallet accounts
     Account account = Account(
         wallet,
-        "Hot Wallet",
+        "Mobile Wallet", // TODO: sync to localazy
         "envoy", // Device code for wallets derived on phone
         DateTime.now(),
         0,
